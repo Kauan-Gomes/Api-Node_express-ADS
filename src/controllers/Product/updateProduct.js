@@ -2,15 +2,22 @@ import product from '../../models/productModel.js'
 
 const updateProduct = async (req, res)=>{   
     try {
-        const [rows, fields] = await product.list()
-        if (rows.length === 0) {
-            res.status(404).json({message: 'Users not found'})
-        } else {
-            res.json(rows)
+        const [result] = await product.update(req.body)
+        if (result.affectedRows === 1) {
+            res.status(200).json({
+                message: `product id: ${req.body.id} Updated`,
+                user: { ...req.body }
+            })
+        }
+        else {
+            res.status(404).json({
+                message: `product id: ${req.body.id} Not Found`,
+
+            })
         }
     } catch (err) {
-        console.error(err)
-        res.status(500).json({message: 'Server error'})
+        console.log(err)
+        res.status(500).json({ message: 'Server Error' })
     }
 }
 

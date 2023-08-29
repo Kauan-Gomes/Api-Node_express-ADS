@@ -5,22 +5,21 @@ const list = async () => {
 }
 
 const get = async (id) => {
-    return await db.query('SELECT * FROM products WHERE id = ?;', [id])
+    return await db.query('SELECT * FROM products WHERE id = ?', [id])
 }
 
-const create = async (user) => {
-    const {name, email, pass} = user
-    return await db.query('INSERT INTO products (name, email, pass) VALUES (?, ?, ?)', [name, email, pass])
+const create = async (product) => {
+    const {name, preco} = product
+    return await db.query('INSERT INTO products (name, preco ) VALUES (?, ?)', [name, preco])
 }
 
-const update = async (user) => {
-    const {id ,name, email, pass} = user
-    return await db.query('UPDATE products SET name = ?, email = ?, pass = ? WHERE id = ?;', [name, email, pass, id])
+const update = async (product) => {
+    const {id ,name, preco} = product
+    return await db.query('UPDATE products SET name = ?, preco = ? WHERE id = ?;', [name, preco, id])
 
 }
 const del = async (id) => {
     return await db.query('DELETE FROM products WHERE id = ?;',  [id])
-
 }
 
-export default {list}
+export default {list, get, create, update, del}

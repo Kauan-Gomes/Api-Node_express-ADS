@@ -4,7 +4,7 @@ const listProduct = async (req, res)=>{
     try {
         const [rows, fields] = await product.list()
         if (rows.length === 0) {
-            res.status(404).json({message: 'Users not found'})
+            res.status(404).json({message: 'Produtos not found'})
         } else {
             res.json(rows)
         }
